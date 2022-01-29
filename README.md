@@ -1,6 +1,6 @@
 # flutter_book_reader
 
-A new Flutter project.
+Mobile Application Development -Courswork2
 
 ## Getting Started
 
