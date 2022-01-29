@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1051311537460",
+    "project_id": "booksreader-d693a",
+    "storage_bucket": "booksreader-d693a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051311537460:android:939195c728b3ccc4def961",
+        "android_client_info": {
+          "package_name": "com.example.flutter_book_reader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051311537460-jqdgu1o8rkm262fqvn20m9j3l62mqvcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQpbL31bm_QWqr8OjFQp6oi4THlvaGiWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051311537460-jqdgu1o8rkm262fqvn20m9j3l62mqvcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
