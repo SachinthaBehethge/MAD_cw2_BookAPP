@@ -75,7 +75,6 @@ class _AdminScreenState extends State<AdminScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, i) {
                   QueryDocumentSnapshot x = snapshot.data!.docs[i];
-                  String id = x['id'];
 
                   return ListTile(
                       leading: Icon(
@@ -88,11 +87,7 @@ class _AdminScreenState extends State<AdminScreen> {
                       trailing: IconButton(
                           onPressed: () async {
                             try {
-                              FirebaseFirestore.instance
-                                  .collection('Books')
-                                  .doc(id)
-                                  .delete()
-                                  .then((_) {
+                              x[i].delete().then((_) {
                                 print("Deleted!");
                               });
                             } catch (e) {

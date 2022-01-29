@@ -63,7 +63,7 @@ class _AddBookState extends State<AddBook> {
         prefixIcon: Icon(Icons.menu_book),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Book Name",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
       ),
     );
 
@@ -93,6 +93,7 @@ class _AddBookState extends State<AddBook> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           uploadFile();
+          Navigator.of(context).pop();
         },
         child: Text(
           "Add Book",
