@@ -138,6 +138,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       passwordFiels,
                       SizedBox(
+                        height: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Reset()));
+                        },
+                        child: Text(
+                          "Foget Password ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.blueAccent),
+                        ),
+                      ),
+                      SizedBox(
                         height: 50,
                       ),
                       loginButton,
@@ -166,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      /*SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -187,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                     ],
                   )),
             ),

@@ -54,7 +54,12 @@ class _AddBookState extends State<AddBook> {
       autofocus: false,
       controller: bookNameController,
       keyboardType: TextInputType.text,
-      //validator: (){},
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please Enter Book Name");
+        }
+        return null;
+      },
       onSaved: (value) {
         bookNameController.text = value!;
       },
@@ -92,8 +97,7 @@ class _AddBookState extends State<AddBook> {
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          uploadFile();
-          Navigator.of(context).pop();
+          uploadFile(context);
         },
         child: Text(
           "Add Book",
@@ -160,7 +164,7 @@ class _AddBookState extends State<AddBook> {
     setState(() => file = File(path));
   }
 
-  Future uploadFile() async {
+  Future uploadFile(BuildContext context) async {
     if (file == null) return;
 
     final fileName = basename(file!.path);
@@ -185,6 +189,7 @@ class _AddBookState extends State<AddBook> {
     });
 
     Fluttertoast.showToast(msg: "Book Added Successfully");
+    Navigator.of(context).pop();
   }
 
   Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(

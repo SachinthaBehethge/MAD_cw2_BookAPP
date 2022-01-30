@@ -6,6 +6,7 @@ import 'package:flutter_book_reader/model/user_model.dart';
 import 'package:flutter_book_reader/screens/add_book.dart';
 import 'package:flutter_book_reader/screens/home_screen.dart';
 import 'package:flutter_book_reader/screens/login_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -42,8 +43,6 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
@@ -53,6 +52,12 @@ class _AdminScreenState extends State<AdminScreen> {
         //Icon(Icons.menu_book_sharp,),
         backgroundColor: Colors.deepOrangeAccent,
         actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => UserList()));
+              },
+              icon: Icon(Icons.person_search_outlined)),
           TextButton(
               onPressed: () {
                 logout(context);
@@ -75,6 +80,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, i) {
                   QueryDocumentSnapshot x = snapshot.data!.docs[i];
+                  String title = x['title'];
 
                   return ListTile(
                       leading: Icon(
@@ -87,7 +93,11 @@ class _AdminScreenState extends State<AdminScreen> {
                       trailing: IconButton(
                           onPressed: () async {
                             try {
-                              x[i].delete().then((_) {
+                              FirebaseFirestore.instance
+                                  .collection('Books')
+                                  .doc(x.id)
+                                  .delete()
+                                  .then((_) {
                                 print("Deleted!");
                               });
                             } catch (e) {
@@ -121,5 +131,52 @@ class _AdminScreenState extends State<AdminScreen> {
   Future<void> addNewBook(BuildContext context) async {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => AddBook()));
+  }
+}
+
+class UserList extends StatefulWidget {
+  @override
+  _UserListState createState() => _UserListState();
+}
+
+class _UserListState extends State<UserList> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => AdminScreen()));
+              },
+              icon: Icon(Icons.arrow_back)),
+          title: Text("Active Users List")),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, i) {
+                  QueryDocumentSnapshot x = snapshot.data!.docs[i];
+
+                  return ListTile(
+                    leading: Icon(
+                      Icons.person,
+                      color: Colors.blue,
+                      size: 25,
+                    ),
+                    title: Text(x['firstName'] + ' ' + x['lastName']),
+                    subtitle: Text(x['email']),
+                  );
+                });
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
   }
 }
