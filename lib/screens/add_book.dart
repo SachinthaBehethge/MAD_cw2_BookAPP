@@ -189,7 +189,8 @@ class _AddBookState extends State<AddBook> {
     });
 
     Fluttertoast.showToast(msg: "Book Added Successfully");
-    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => AddBook()));
   }
 
   Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
